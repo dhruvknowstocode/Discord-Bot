@@ -1,0 +1,22 @@
+{
+  "name": "discord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.17.1",
+    "axios": "^1.7.7",
+    "discord.js": "^14.16.1",
+    "dotenv": "^16.4.5",
+    "mongodb": "^6.8.1",
+    "mongoose": "^8.6.1",
+    "node-fetch": "^3.3.2"
+  }
+}
