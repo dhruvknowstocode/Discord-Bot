@@ -83,7 +83,7 @@ async function main() {
     if (message.content === "!ping") {
       message.channel.send("Pong!");
     } else if (message.content === "!hello") {
-      message.channel.send(`Hello, ${message.author.username}!`);
+      message.channel.send(`Hey ${message.author.username}! 😄 What can I do for you today?`);
     } else if (message.content === "!rank") {
       message.channel.send(`${message.author.username}, you have ${user.points} points!`);
     } else if (message.content === "!joke") {
