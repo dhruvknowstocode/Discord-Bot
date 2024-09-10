@@ -1,4 +1,5 @@
 const http = require('http');
+const triviaQuestions = require('./TriviaQuestion');
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
@@ -28,7 +29,7 @@ async function handleUnrecognizedCommand(messageContent) {
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
     if (responseText.length > 2000) {
-      return responseText.substring(0, 2000) + '...'; 
+      return responseText.substring(0, 2000) + '...';
     } else {
       return responseText;
     }
@@ -145,7 +146,37 @@ async function main() {
     } else if (message.content === '!help') {
       const helpMessage = await handleHelpCommand();
       message.channel.send(helpMessage);
-    } else {
+    } else if (message.content.startsWith("!trivia")) {
+      const args = message.content.split(" ");
+      const category = args[1] || "All";
+
+      const filteredQuestions = triviaQuestions.filter(q =>
+        category === "All" || q.category === category
+      );
+
+      if (filteredQuestions.length === 0) {
+        message.channel.send("No questions available for the chosen category.");
+        return;
+      }
+
+      const randomQuestion = filteredQuestions[Math.floor(Math.random() * filteredQuestions.length)];
+      let answerString = "";
+      randomQuestion.answers.forEach((ans, idx) => {
+        answerString += `\`${idx + 1}\` - ${ans}\n`;
+      });
+      message.channel.send(`${randomQuestion.question}\n${answerString}`);
+
+      const filter = (response) => response.author.id === message.author.id;
+      const collected = await message.channel.awaitMessages({ filter, max: 1, time: 10000 });
+      const answer = collected.first();
+
+      if (parseInt(answer.content) - 1 === randomQuestion.correct) {
+        message.channel.send("Correct answer! 🎉");
+      } else {
+        message.channel.send(`Wrong answer! The correct answer was ${randomQuestion.answers[randomQuestion.correct]}`);
+      }
+    }
+    else {
       const responseText = await handleUnrecognizedCommand(message.content);
       message.channel.send(responseText);
     }
