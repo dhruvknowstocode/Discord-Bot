@@ -50,6 +50,7 @@ async function handleHelpCommand() {
 \`!leaderboard\` - Shows the top 10 users with the most points.
 \`!level\` - Displays the user's current level based on points.
 \`!weather <city>\` - Provides the current temperature for the specified city.
+\`!trivia\` - Asks a random trivia question. You can specify a category or use "All" for any category.
 \`!help\` - Displays this help message.
 
 **AI Feature:**
