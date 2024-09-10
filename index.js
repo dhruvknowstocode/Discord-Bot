@@ -23,7 +23,7 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
 async function handleUnrecognizedCommand(messageContent) {
   try {
-    const prompt = `User input: "${messageContent}". How should the bot respond?`;
+    const prompt = `User input: "${messageContent}". Provide a single, concise, human-like response that fits in a casual chat context.`;
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
